@@ -25,6 +25,7 @@ export default {};
     cursor: pointer;
   }
   input {
+    outline: none;
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -35,8 +36,6 @@ export default {};
     color: white;
     font-weight: bold;
   }
-  input:focus {
-    border: 0px;
-  }
+  
 }
 </style>
