@@ -19,6 +19,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media (max-width: 768px) {
+  main{
+    flex-direction: column;
+  }
+}
 main {
   width: 100%;
   height: 100vh;

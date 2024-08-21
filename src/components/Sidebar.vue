@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar py-3 px-2">
-    <div class="search h-100 bg-white rounded-3 p-4">
+    <div class="search bg-white rounded-3 p-4">
       <AppSearchBar/>
     </div>
   </div>
@@ -18,10 +18,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sidebar {
-  // debug
-  // background-color: lightcoral;
-  width: 25%;
-  height: 100%;
+  .sidebar {
+    // debug
+    // background-color: lightcoral;
+    width: 25%;
+    height: 100%;
+  }
+@media (max-width: 768px) {
+  .sidebar{
+    width: 100%;
+  }
+}
+
+@media (width: 768px){
+  .sidebar{
+    height: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  .search {
+      height: 100%;
+    }
+}
+@media (min-width: 426px) {
+  .sidebar{
+    height: auto;
+  }
 }
 </style>

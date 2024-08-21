@@ -18,8 +18,8 @@ export default {};
 <style lang="scss" scoped>
 .searchBar {
   width: 100%;
-//   height: 50px;
-padding: 10px;
+  //   height: 50px;
+  padding: 10px;
   background-color: #ffb871;
   i {
     cursor: pointer;

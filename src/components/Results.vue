@@ -1,7 +1,7 @@
 <template>
     
         <div class="container-fluid p-3">
-            <div class="row row-cols-lg-4 row-cols-md-2 row-cols-1 g-3">
+            <div class="row row-cols-1 g-3">
                 <div class="col">
                     <AppCard/>
                 </div>
@@ -73,5 +73,20 @@ export default {
     // background-color: greenyellow;
    
     overflow-y: scroll;
+}
+@media (min-width: 500px) {
+  .col{
+    width: 50%;
+  }
+}
+@media (min-width: 769px) {
+  .col{
+    width: calc(100% / 3);
+  }
+}
+@media (min-width: 1025px) {
+  .col{
+    width: calc(100% / 4);
+  }
 }
 </style>
