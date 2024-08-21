@@ -1,18 +1,76 @@
 <template>
-    <div class="ms-container p-3"></div>
+    
+        <div class="container-fluid p-3">
+            <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2 g-3">
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+                <div class="col">
+                    <AppCard/>
+                </div>
+            </div>
+        </div>
+
   
 </template>
 
 <script>
-export default {
+import AppCard from "./AppCard.vue";
 
+export default {
+    components:{
+        AppCard
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-.ms-container {
-    background-color: greenyellow;
-    width: 75%;
-    height: 100%;
+.container-fluid {
+    // debug
+    // background-color: greenyellow;
+   
+    overflow-y: scroll;
 }
 </style>

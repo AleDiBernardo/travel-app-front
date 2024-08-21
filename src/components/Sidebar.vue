@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar p-3">
+  <div class="sidebar py-3 px-2">
     <div class="search h-100 bg-white rounded-3"></div>
   </div>
 </template>
@@ -10,7 +10,8 @@ export default {};
 
 <style lang="scss" scoped>
 .sidebar {
-  background-color: lightcoral;
+  // debug
+  // background-color: lightcoral;
   width: 25%;
   height: 100%;
 
