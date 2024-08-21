@@ -1,13 +1,22 @@
 <template>
-  
+  <AppMain/>
 </template>
 
 <script>
-export default {
+import AppMain from "./components/AppMain.vue";
 
+export default {
+  components: {
+    AppMain,
+  },
+  data(){
+    return{
+
+    }
+  }
 }
 </script>
 
 <style>
-
+  
 </style>
