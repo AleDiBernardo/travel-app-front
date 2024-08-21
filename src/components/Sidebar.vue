@@ -1,11 +1,20 @@
 <template>
   <div class="sidebar py-3 px-2">
-    <div class="search h-100 bg-white rounded-3"></div>
+    <div class="search h-100 bg-white rounded-3 p-4">
+      <AppSearchBar/>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+import AppSearchBar from "./AppSearchBar.vue";
+
+export default {
+  components: {
+
+    AppSearchBar,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -14,7 +23,5 @@ export default {};
   // background-color: lightcoral;
   width: 25%;
   height: 100%;
-
- 
 }
 </style>
