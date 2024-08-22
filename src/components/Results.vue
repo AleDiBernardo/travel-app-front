@@ -1,3 +1,4 @@
+
 <template>
   <div class="container-fluid p-3">
     <div class="row row-cols-1 g-3" id="main-row">
@@ -140,6 +141,7 @@ export default {
     .bottom {
       background: $primary-color;
       overflow-y: hidden;
+      height: 100%;
       .right {
         width: 50%;
         height: 100%;
@@ -164,6 +166,7 @@ export default {
           // border
         }
         #calendar{
+
           overflow-y: scroll;
           // overflow-x: hidden;
 
