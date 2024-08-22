@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar py-3 px-2">
+  <div class="sidebar py-3 px-2"  @click="this.store.modalOpen = false">
     <div class="search bg-white rounded-3 p-4">
       <AppSearchBar/>
     </div>
@@ -8,6 +8,7 @@
 
 <script>
 import AppSearchBar from "./AppSearchBar.vue";
+import { store } from "../store";
 
 
 
@@ -16,6 +17,11 @@ export default {
 
     AppSearchBar,
   },
+  data(){
+    return {
+      store
+    }
+  }
 };
 </script>
 

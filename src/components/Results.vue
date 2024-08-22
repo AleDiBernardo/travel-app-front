@@ -3,41 +3,22 @@
     <div class="row row-cols-1 g-3">
       <div class="col" v-for="curTrip in filteredTrips" :key="curTrip.id">
         <AppCard :results="curTrip" />
-
       </div>
     </div>
     <!-- {{ this.store.modalInfo.titolo }} -->
     <!-- Button trigger modal -->
-    
+
     <!-- Modal -->
-    <div
-      v-if="this.store.modalOpen"
-      class=""
-      
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ this.store.modalInfo.titolo }}</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">...</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              @click="this.store.modalOpen = false"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+   
+    <div class="overlay d-flex justify-content-center align-items-center" v-if="this.store.modalOpen" @click="this.store.modalOpen = false">
+
+    
+      <div class="modale d-flex flex-column py-4 px-5 rounded rounded-3 gap-4" @click.stop> 
+        <div class="top d-flex gap-4">
+          <div class="img rounded rounded-3"></div>
+          <div class="info rounded rounded-3"></div>
         </div>
+        <div class="bottom h-100 w-100 rounded rounded-3"></div>
       </div>
     </div>
   </div>
@@ -54,11 +35,11 @@ export default {
   },
   mounted() {
     console.log("ciao");
-    
+
     // this.$root.$on('open-modal', (data) => {
     //   this.modalData = data
     //   console.log(this.modalData);
-      
+
     // })
   },
   computed: {
@@ -76,7 +57,7 @@ export default {
   data() {
     return {
       store,
-      modalData: null
+      modalData: null,
     };
   },
 };
@@ -86,9 +67,48 @@ export default {
 .container-fluid {
   // debug
   // background-color: greenyellow;
+  position: relative;
 
   overflow-y: scroll;
+  .overlay{
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+  }
+  .modale {
+
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    background: white;
+    
+
+    .top{
+      .img{
+        width: 60%;
+        height: 400px;
+        background: red;
+      }
+      .info{
+        width: 40%;
+        height: 400px;
+        background: green;
+      }
+    }
+    .bottom{
+      background: lightblue;
+    }
+  }
 }
+
 @media (min-width: 500px) {
   .col {
     width: 50%;
