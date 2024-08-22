@@ -2,6 +2,8 @@ import {reactive} from "vue"
 
 export const store = reactive({
     tripsList: null,
-    userQuery: ""
+    userQuery: "",
+    modalInfo: null,
+    modalOpen: false
     
 });

@@ -2,20 +2,47 @@
   <div class="card border border-0">
     <div class="card-body d-flex flex-column gap-1">
       <div class="img-container rounded rounded-3"></div>
-      <div
+      <!-- <div
         class="title-container rounded rounded-3 d-flex justify-content-center align-items-center"
       >
         {{ this.results.titolo }}
-      </div>
+      </div> -->
+      <button
+      type="button"
+      class="border border-0 btn btn-primary title-container rounded rounded-3 d-flex justify-content-center align-items-center"
+      @click="openModal()"
+    >
+    {{ this.results.titolo }}
+    </button>
+
     </div>
   </div>
 </template>
 
 <script>
+import { store } from "../store";
+
 export default {
   props: {
     results: Object,
   },
+  data(){
+    return{
+      store
+    }
+  },
+  methods:{
+    openModal(){
+      if(this.store.modalOpen){
+
+        this.store.modalInfo = this.results
+      }
+      this.store.modalOpen = !this.store.modalOpen
+
+      console.log(this.store.modalOpen);
+      
+    }
+  }
 };
 </script>
 
