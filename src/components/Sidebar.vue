@@ -9,6 +9,8 @@
 <script>
 import AppSearchBar from "./AppSearchBar.vue";
 
+
+
 export default {
   components: {
 

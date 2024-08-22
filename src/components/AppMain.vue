@@ -10,6 +10,8 @@ import Sidebar from "./Sidebar.vue";
 import Results from "./Results.vue";
 
 
+
+
 export default {
   components: {
     Sidebar,
@@ -19,6 +21,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "../scss/partials/variables" as *;
 @media (max-width: 768px) {
   main{
     flex-direction: column;
@@ -27,6 +30,6 @@ export default {
 main {
   width: 100%;
   height: 100vh;
-  background-color: #ffb871;
+  background-color: $primary-color;
 }
 </style>
