@@ -34,7 +34,7 @@ export default {
   methods:{
     openModal(){
         this.store.modalInfo = this.results
-      this.store.modalOpen = !this.store.modalOpen
+      this.store.modalOpen = true
 
       console.log(this.store.modalOpen);
       
