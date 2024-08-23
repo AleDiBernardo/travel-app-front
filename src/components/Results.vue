@@ -55,11 +55,12 @@
                   @click="openStage(index)"
                   
                   class="col"
-                  
+                  v-if="this.store.stages.length > 0"
                   v-for="(curData, index) in this.store.stages"
                   :key="index"
                 >
                   <div
+                    
                     class="square rounded rounded-3 d-flex flex-column justify-content-center align-items-center"
                   >
                     <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
@@ -73,7 +74,9 @@
                       <p v-else>Descrizione non disponibile</p>
                     </div>
                   </div>
+                  
                 </div>
+                <p v-else class="fs-3 text-center">Non ci sono tappe</p>
               </div>
             </div>
           </div>
