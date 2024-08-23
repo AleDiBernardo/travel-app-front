@@ -8,38 +8,58 @@
         {{ this.results.titolo }}
       </div> -->
       <button
-      type="button"
-      class="border border-0 btn btn-primary title-container rounded rounded-3 d-flex justify-content-center align-items-center"
-      @click="openModal()"
-    >
-    {{ this.results.titolo }}
-    </button>
-
+        type="button"
+        class="border border-0 btn btn-primary title-container rounded rounded-3 d-flex justify-content-center align-items-center"
+        @click="openModal()"
+      >
+        {{ this.results.titolo }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import { store } from "../store";
+import { DateTime } from "luxon";
 
 export default {
   props: {
     results: Object,
   },
-  data(){
-    return{
-      store
-    }
+  data() {
+    return {
+      store,
+      date: [],
+    };
   },
-  methods:{
-    openModal(){
-        this.store.modalInfo = this.results
-      this.store.modalOpen = true
+  methods: {
+    openModal() {
+      
+      this.store.modalInfo = this.results;
+      this.store.days = this.getDays();
+      this.store.modalOpen = true;
 
       console.log(this.store.modalOpen);
+    },
+    getDays() {
+      const inizio = DateTime.fromISO(this.store.modalInfo.data_inizio);
+      const fine = DateTime.fromISO(this.store.modalInfo.data_fine);
+      const differenza = fine.diff(inizio, "days");
+      const giorni = differenza.values.days + 1; // Includiamo anche il giorno finale
+
+      this.date = [];
+      for (let i = 0; i < giorni; i++) {
+        const data = inizio.plus({ days: i }).setLocale('it').toFormat('dd LLL yyyy');
+        
+        // const dataFormattata = data.toLocaleString(DateTime.MED);
+        this.date.push(data);
+        
+      }
       
-    }
-  }
+
+      return this.date;
+    },
+  },
 };
 </script>
 

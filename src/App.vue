@@ -1,6 +1,5 @@
 <template>
-  <!-- <AppMain/> -->
-  <router-view></router-view>
+  <AppMain/>
 </template>
 
 <script>

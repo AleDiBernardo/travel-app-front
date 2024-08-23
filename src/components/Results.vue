@@ -1,4 +1,3 @@
-
 <template>
   <div class="container-fluid p-3">
     <div class="row row-cols-1 g-3" id="main-row">
@@ -10,7 +9,7 @@
     <div
       class="overlay d-flex justify-content-center align-items-center"
       v-if="this.store.modalOpen"
-      @click="this.store.modalOpen = false"
+      @click="closeModal()"
     >
       <div
         class="modale d-flex flex-column py-4 px-5 rounded rounded-3 gap-4"
@@ -25,21 +24,58 @@
           </div>
         </div>
         <div
-          class="bottom  rounded rounded-3 d-flex p-3 text-white justify-content-between"
+          class="bottom rounded rounded-3 d-flex p-3 text-white justify-content-between"
         >
           <div class="left d-flex flex-column fw-bold">
             <h2>Giorni</h2>
 
             <div class="container p-3" id="calendar">
-              <div class="row row-cols-lg-5 row-cols-5 g-2">
-                <div class="col" v-for="_, index in this.getDays()">
-                  <div class="square rounded rounded-3 fs-3 fw-bold d-flex justify-content-center align-items-center">{{ index+1 }}</div>
+              <div class="row row-cols-1 g-2">
+                <div
+                  class="col"
+                  v-for="(curData, index) in this.store.days"
+                  :key="index"
+                >
+                  <div
+                    @click="showStages(curData, index)"
+                    class="square rounded rounded-3 fs-3 fw-bold d-flex justify-content-center align-items-center"
+                    :class="{ clicked: this.selectedIndex === index }"
+                  >
+                    {{ curData }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="right d-flex flex-column fw-bold">
             <h2>Tappe</h2>
+            <div class="container p-3" id="calendar">
+              <div class="row row-cols-1 g-2">
+                <div
+                  @click="openStage(index)"
+                  
+                  class="col"
+                  
+                  v-for="(curData, index) in this.store.stages"
+                  :key="index"
+                >
+                  <div
+                    class="square rounded rounded-3 d-flex flex-column justify-content-center align-items-center"
+                  >
+                    <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
+                    <div
+                      v-if="this.stageClicked && this.selectedStage === index"
+                      class="d-flex flex-column justify-content-start align-items-start"
+                    >
+                      <p v-if="curData.descrizione" class="fs-5">
+                        {{ curData.descrizione }}
+                      </p>
+                      <p v-else>Descrizione non disponibile</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -51,29 +87,66 @@
 import AppCard from "./AppCard.vue";
 
 import { store } from "../store";
-import { DateTime } from 'luxon';
+import { DateTime } from "luxon";
 export default {
   components: {
     AppCard,
   },
-  mounted() {
-    console.log("ciao");
 
-    // this.$root.$on('open-modal', (data) => {
-    //   this.modalData = data
-    //   console.log(this.modalData);
+  methods: {
+    showStages(data, index) {
+      this.selectedIndex = index;
+      this.stageClicked = false;
 
-    // })
-  },
-  methods:{
-    getDays(){
-      const inizio = DateTime.fromISO(this.store.modalInfo.data_inizio);
-      const fine = DateTime.fromISO(this.store.modalInfo.data_fine);
-      const differenza = fine.diff(inizio, 'days');
-      console.log(differenza.values.days);
-      
-      return differenza.values.days;
-    }
+      this.store.stages = [];
+      let formattedData = this.formatData(data);
+      // console.log("FormattedData: " + formattedData);
+
+      this.store.modalInfo.stages.forEach((stage) => {
+        // console.log("Data Stage: " + stage.data);
+
+        if (stage.data == formattedData) {
+          this.store.stages.push(stage);
+        }
+      });
+    },
+    closeModal(){
+      this.store.modalOpen = false
+      this.stageClicked = false
+      this.selectedIndex = 0;
+      this.store.stages = [];
+    },
+    openStage(index) {
+      index !== this.selectedStage
+        ? (this.stageClicked = true)
+        : (this.stageClicked = !this.stageClicked);
+
+      this.selectedStage = index;
+    },
+    formatData(dataString) {
+      const parti = dataString.split(" ");
+
+      const mesi = [
+        "gen",
+        "feb",
+        "mar",
+        "apr",
+        "mag",
+        "giu",
+        "lug",
+        "ago",
+        "set",
+        "ott",
+        "nov",
+        "dic",
+      ];
+      const data = new Date(parti[2], mesi.indexOf(parti[1]), parti[0]);
+
+      data.setDate(data.getDate() + 1);
+      const dataFormattata = data.toISOString().slice(0, 10);
+
+      return dataFormattata;
+    },
   },
   computed: {
     filteredTrips() {
@@ -91,6 +164,9 @@ export default {
     return {
       store,
       modalData: null,
+      selectedIndex: 0,
+      stageClicked: false,
+      selectedStage: null,
     };
   },
 };
@@ -98,10 +174,15 @@ export default {
 
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
-.container-fluid::-webkit-scrollbar{
+.container-fluid::-webkit-scrollbar {
   display: none;
 }
 .container-fluid {
+  .clicked {
+    background-color: rgb(231, 231, 231) !important;
+    // border: 3px solid white;
+    // border: 3px solid rgb(201, 201, 201);
+  }
   // debug
   // background-color: greenyellow;
   position: relative;
@@ -146,6 +227,34 @@ export default {
         width: 50%;
         height: 100%;
         // background: red;
+        #calendar::-webkit-scrollbar-thumb {
+          // display: none;
+          // width: 5px;
+          // height: 10px;
+          background-color: white;
+          border-radius: 5px;
+        }
+        #calendar::-webkit-scrollbar {
+          // display: none;
+          width: 5px;
+
+          background-color: none;
+          // border
+        }
+        #calendar {
+          overflow-y: scroll;
+          // overflow-x: hidden;
+        }
+        .square {
+          // width: 50px;
+          color: $primary-color;
+          // aspect-ratio: 1;
+          cursor: pointer;
+          // height: 50px;
+
+          background: white;
+          
+        }
       }
       .left {
         width: 35%;
@@ -165,20 +274,23 @@ export default {
           background-color: none;
           // border
         }
-        #calendar{
-
+        #calendar {
           overflow-y: scroll;
           // overflow-x: hidden;
-
         }
         .square {
           // width: 50px;
           color: $primary-color;
-          aspect-ratio: 1;
+          // aspect-ratio: 1;
           cursor: pointer;
           // height: 50px;
 
           background: white;
+
+          &:hover {
+            background-color: rgb(231, 231, 231);
+            // border: 3px solid rgb(231, 231, 231);
+          }
         }
       }
     }

@@ -4,6 +4,7 @@ export const store = reactive({
     tripsList: null,
     userQuery: "",
     modalInfo: null,
-    modalOpen: false
+    modalOpen: false,
+    stages: []
     
 });
