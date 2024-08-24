@@ -69,13 +69,14 @@
                       <div v-if="curData.descrizione">
                         <p class="fs-5">
                           {{ curData.descrizione }}
-                          <AppMap @click.stop />
+                          <AppMap :lon="Number(this.store.modalInfo.stages[index].longitudine)" :lat="Number(this.store.modalInfo.stages[index].latitudine)" @click.stop />
                         </p>
                       </div>
                       <div v-else>
                         <p>
                           Descrizione non disponibile
-                          <AppMap @click.stop />
+                          <AppMap :lon="Number(this.store.modalInfo.stages[index].longitudine)" :lat="Number(this.store.modalInfo.stages[index].latitudine)" @click.stop />
+
                         </p>
                       </div>
                     </div>
@@ -108,6 +109,7 @@ export default {
     showStages(data, index) {
       this.selectedIndex = index;
       this.stageClicked = false;
+      console.log(this.store.modalInfo);
 
       this.store.stages = [];
       let formattedData = this.formatData(data);
@@ -126,6 +128,7 @@ export default {
       this.stageClicked = false;
       this.selectedIndex = 0;
       this.store.stages = [];
+      
     },
     openStage(index) {
       index !== this.selectedStage
@@ -133,6 +136,11 @@ export default {
         : (this.stageClicked = !this.stageClicked);
 
       this.selectedStage = index;
+
+      console.log(this.store.modalInfo.stages[index].longitudine);
+      console.log(this.store.modalInfo.stages[index].latitudine);
+
+      
     },
     formatData(dataString) {
       const parti = dataString.split(" ");

@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script setup>
+<!-- <script setup>
 import { Map, MapStyle, config } from "@maptiler/sdk";
 import { shallowRef, onMounted, onUnmounted, markRaw } from "vue";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
@@ -12,12 +12,15 @@ import "@maptiler/sdk/dist/maptiler-sdk.css";
 const mapContainer = shallowRef(null);
 const map = shallowRef(null);
 
-
+const props = defineProps({
+    lat:Number,
+    lon: Number
+})
 
 onMounted(() => {
   config.apiKey = "HAdhhdWUNFeYBPsN7Itt";
 
-  const initialState = { lng: 139.753, lat: 35.6844, zoom: 14 };
+  const initialState = { lng: this.lon, lat: this.lat, zoom: 14 };
 
   map.value = markRaw(
     new Map({
@@ -31,12 +34,50 @@ onMounted(() => {
   onUnmounted(() => {
     map.value?.remove();
   });
-</script>
+</script> -->
+
+  
+  <script>
+  import { Map, MapStyle, config } from '@maptiler/sdk';
+  export default {
+    props: {
+      lat: {
+        type: Number,
+        required: true,
+      },
+      lon: {
+        type: Number,
+        required: true,
+      },
+    },
+    data() {
+      return {
+        map: null,
+      };
+    },
+    mounted() {
+      config.apiKey = "HAdhhdWUNFeYBPsN7Itt";
+  
+      const initialState = { lng: this.lon, lat: this.lat, zoom: 14 };
+  
+      this.map = new Map({
+        container: this.$refs.mapContainer,
+        style: MapStyle.STREETS,
+        center: [initialState.lng, initialState.lat],
+        zoom: initialState.zoom,
+      });
+    },
+    beforeDestroy() {
+      this.map?.remove();
+    },
+  };
+  </script>
+  
 
 <style scoped>
-.maplibregl-ctrl-bottom-right {
+/* .maplibregl-ctrl-bottom-right {
   display: none !important;
-}
+} */
 .map-wrap {
   position: relative;
   width: 100%;
