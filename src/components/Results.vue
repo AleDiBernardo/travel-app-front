@@ -5,6 +5,8 @@
         <AppCard :results="curTrip" />
       </div>
     </div>
+    <!-- <Street/> -->
+
 
     <div
       class="overlay d-flex justify-content-center align-items-center"
@@ -69,18 +71,22 @@
                       <div v-if="curData.descrizione">
                         <p class="fs-5">
                           {{ curData.descrizione }}
-                          <AppMap :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop />
                         </p>
                       </div>
                       <div v-else>
                         <p>
                           Descrizione non disponibile
-                          <AppMap :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop />
-
+                         
                         </p>
                       </div>
+                      
+                      
                     </div>
+                    <!-- <AppMap v-if="this.stageClicked && this.selectedStage === index" class="w-75 border border-5 rounded rounded-3 border-white" :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop /> -->
+                    <!-- <google-map :lat="40.7128" :lon="-74.006"/> -->
                   </div>
+                  <!-- 40.7128 -->
+                  <!-- -74.006 -->
                 </div>
                 <p v-else class="fs-3 text-center">Non ci sono tappe</p>
               </div>
@@ -95,6 +101,10 @@
 <script>
 import AppCard from "./AppCard.vue";
 import AppMap from "./AppMap.vue";
+import GoogleMap from "./GoogleMap.vue";
+import Street from "./OpenStreetMap.vue";
+
+
 
 import { store } from "../store";
 import { DateTime } from "luxon";
@@ -102,7 +112,9 @@ import { DateTime } from "luxon";
 export default {
   components: {
     AppCard,
-    AppMap,
+    // AppMap,
+    // GoogleMap
+    // Street
   },
 
   methods: {
