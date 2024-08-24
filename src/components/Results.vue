@@ -53,14 +53,12 @@
               <div class="row row-cols-1 g-2">
                 <div
                   @click="openStage(index)"
-                  
                   class="col"
                   v-if="this.store.stages.length > 0"
                   v-for="(curData, index) in this.store.stages"
                   :key="index"
                 >
                   <div
-                    
                     class="square rounded rounded-3 d-flex flex-column justify-content-center align-items-center"
                   >
                     <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
@@ -68,13 +66,20 @@
                       v-if="this.stageClicked && this.selectedStage === index"
                       class="d-flex flex-column justify-content-start align-items-start"
                     >
-                      <p v-if="curData.descrizione" class="fs-5">
-                        {{ curData.descrizione }}
-                      </p>
-                      <p v-else>Descrizione non disponibile</p>
+                      <div v-if="curData.descrizione">
+                        <p class="fs-5">
+                          {{ curData.descrizione }}
+                          <AppMap @click.stop />
+                        </p>
+                      </div>
+                      <div v-else>
+                        <p>
+                          Descrizione non disponibile
+                          <AppMap @click.stop />
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  
                 </div>
                 <p v-else class="fs-3 text-center">Non ci sono tappe</p>
               </div>
@@ -88,12 +93,15 @@
 
 <script>
 import AppCard from "./AppCard.vue";
+import AppMap from "./AppMap.vue";
 
 import { store } from "../store";
 import { DateTime } from "luxon";
+
 export default {
   components: {
     AppCard,
+    AppMap,
   },
 
   methods: {
@@ -113,9 +121,9 @@ export default {
         }
       });
     },
-    closeModal(){
-      this.store.modalOpen = false
-      this.stageClicked = false
+    closeModal() {
+      this.store.modalOpen = false;
+      this.stageClicked = false;
       this.selectedIndex = 0;
       this.store.stages = [];
     },
@@ -256,7 +264,6 @@ export default {
           // height: 50px;
 
           background: white;
-          
         }
       }
       .left {
