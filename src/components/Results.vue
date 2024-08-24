@@ -69,13 +69,13 @@
                       <div v-if="curData.descrizione">
                         <p class="fs-5">
                           {{ curData.descrizione }}
-                          <AppMap :lon="Number(this.store.modalInfo.stages[index].longitudine)" :lat="Number(this.store.modalInfo.stages[index].latitudine)" @click.stop />
+                          <AppMap :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop />
                         </p>
                       </div>
                       <div v-else>
                         <p>
                           Descrizione non disponibile
-                          <AppMap :lon="Number(this.store.modalInfo.stages[index].longitudine)" :lat="Number(this.store.modalInfo.stages[index].latitudine)" @click.stop />
+                          <AppMap :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop />
 
                         </p>
                       </div>

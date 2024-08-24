@@ -78,6 +78,10 @@ onMounted(() => {
 /* .maplibregl-ctrl-bottom-right {
   display: none !important;
 } */
+
+.maplibregl-ctrl-top-right {
+    display: none !important;
+}
 .map-wrap {
   position: relative;
   width: 100%;
