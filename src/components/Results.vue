@@ -48,7 +48,10 @@
             </div>
           </div>
           <div class="right d-flex flex-column fw-bold">
-            <h2>Tappe</h2>
+            <div class="d-flex justify-content-between align-items-center">
+              <h2>Tappe</h2>
+              <router-link to="/create" class="btn bg-white ms_btn">+</router-link>
+            </div>
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
                 <div
@@ -69,7 +72,8 @@
                       <div v-if="curData.descrizione">
                         <p class="fs-5">
                           {{ curData.descrizione }}
-                          <AppMap :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop />
+                          <!-- <AppMap :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop /> -->
+                          <AppSuca :longitudine="Number(curData.longitudine)" :latitudine="Number(curData.latitudine)" />
                         </p>
                       </div>
                       <div v-else>
@@ -98,11 +102,13 @@ import AppMap from "./AppMap.vue";
 
 import { store } from "../store";
 import { DateTime } from "luxon";
+import AppSuca from "./AppSuca.vue";
 
 export default {
   components: {
     AppCard,
     AppMap,
+    AppSuca
   },
 
   methods: {
@@ -225,6 +231,12 @@ export default {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     transform: translate(-50%, -50%);
     background: white;
+
+    .ms_btn {
+      color: $primary-color;
+      font-weight: bolder;
+      font-size: larger;
+    }
 
     .top {
       .img {

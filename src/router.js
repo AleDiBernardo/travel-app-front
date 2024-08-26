@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AppMain from "./components/AppMain.vue";
-// import AppCreate from "./components/AppCreate.vue";
+import AppCreate from "./components/AppCreate.vue";
 
 const routes = [
     {
@@ -9,11 +9,11 @@ const routes = [
         component: AppMain,
     },
     // TEST
-    // {
-    //     path: "/create",
-    //     name: "Create",
-    //     component: AppCreate,
-    // },
+    {
+        path: "/create",
+        name: "Create",
+        component: AppCreate,
+    },
 ];
 
 const router = createRouter({
