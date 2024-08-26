@@ -15,7 +15,7 @@ import Results from "./Results.vue";
 export default {
   components: {
     Sidebar,
-    Results
+    Results,
   },
 };
 </script>

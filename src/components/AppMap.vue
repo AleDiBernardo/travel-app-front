@@ -4,59 +4,62 @@
   </div>
 </template>
 
-<script>
-import { Map, MapStyle, config } from "@maptiler/sdk";
-export default {
-  props: {
-    lat: {
-      type: Number,
-      required: true,
-    },
-    lon: {
-      type: Number,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      map: null,
-    };
-  },
-  created() {
- 
-  },
+<script setup>
+import { Map, MapStyle, Marker, config } from "@maptiler/sdk";
+import { shallowRef, onMounted, onUnmounted, markRaw } from "vue";
+import "@maptiler/sdk/dist/maptiler-sdk.css";
 
-  mounted() {
-    config.apiKey = "HAdhhdWUNFeYBPsN7Itt";
+const mapContainer = shallowRef(null);
+const map = shallowRef(null);
 
-    const initialState = { lng: this.lon, lat: this.lat, zoom: 14 };
+const props = defineProps({
+  lat: Number,
+  lng: Number,
+});
 
-    this.map = new Map({
-      container: this.$refs.mapContainer,
+onMounted(() => {
+  console.log(props.lat);
+
+  config.apiKey = "HAdhhdWUNFeYBPsN7Itt";
+
+  const initialState = { lng: props.lng, lat: props.lat, zoom: 14 };
+
+  map.value = markRaw(
+    new Map({
+      container: mapContainer.value,
       style: MapStyle.STREETS,
       center: [initialState.lng, initialState.lat],
       zoom: initialState.zoom,
-    });
-  },
-  beforeDestroy() {
-    this.map?.remove();
-  },
-};
+    })
+  );
+
+  new Marker({ color: "#ffb871" })
+    .setLngLat([props.lng, props.lat])
+    .addTo(map.value);
+}),
+  onUnmounted(() => {
+    map.value?.remove();
+  });
 </script>
 
 <style scoped>
+@use "../scss/partials/variables" as *;
 
 .map-wrap {
   position: relative;
-  width: 100%;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   aspect-ratio: 1;
+  
 }
 
 .map {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 85%;
+  aspect-ratio: 1
+
+  /* height: 100%; */
 }
-
-
 </style>

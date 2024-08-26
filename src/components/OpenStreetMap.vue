@@ -5,6 +5,7 @@
 <script>
 import L from "leaflet";
 
+
 export default {
   mounted() {
     this.map = L.map("map").setView([51.505, -0.09], 13);

@@ -5,7 +5,7 @@
         <AppCard :results="curTrip" />
       </div>
     </div>
-    <!-- <Street/> -->
+
 
 
     <div
@@ -82,7 +82,7 @@
                       
                       
                     </div>
-                    <!-- <AppMap v-if="this.stageClicked && this.selectedStage === index" class="w-75 border border-5 rounded rounded-3 border-white" :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop /> -->
+                    <AppMap v-if="this.stageClicked && this.selectedStage === index" class=" rounded rounded-3 border-white " :lng="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop />
                     <!-- <google-map :lat="40.7128" :lon="-74.006"/> -->
                   </div>
                   <!-- 40.7128 -->
@@ -112,7 +112,7 @@ import { DateTime } from "luxon";
 export default {
   components: {
     AppCard,
-    // AppMap,
+    AppMap,
     // GoogleMap
     // Street
   },
