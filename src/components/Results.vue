@@ -83,10 +83,8 @@
                       
                     </div>
                     <AppMap v-if="this.stageClicked && this.selectedStage === index" class=" rounded rounded-3 border-white " :lng="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop />
-                    <!-- <google-map :lat="40.7128" :lon="-74.006"/> -->
+                   
                   </div>
-                  <!-- 40.7128 -->
-                  <!-- -74.006 -->
                 </div>
                 <p v-else class="fs-3 text-center">Non ci sono tappe</p>
               </div>
@@ -101,8 +99,6 @@
 <script>
 import AppCard from "./AppCard.vue";
 import AppMap from "./AppMap.vue";
-import GoogleMap from "./GoogleMap.vue";
-import Street from "./OpenStreetMap.vue";
 
 
 
@@ -113,8 +109,6 @@ export default {
   components: {
     AppCard,
     AppMap,
-    // GoogleMap
-    // Street
   },
 
   methods: {
@@ -211,11 +205,7 @@ export default {
 .container-fluid {
   .clicked {
     background-color: rgb(231, 231, 231) !important;
-    // border: 3px solid white;
-    // border: 3px solid rgb(201, 201, 201);
   }
-  // debug
-  // background-color: greenyellow;
   position: relative;
 
   overflow-y: scroll;
@@ -257,31 +247,21 @@ export default {
       .right {
         width: 50%;
         height: 100%;
-        // background: red;
         #calendar::-webkit-scrollbar-thumb {
-          // display: none;
-          // width: 5px;
-          // height: 10px;
           background-color: white;
           border-radius: 5px;
         }
         #calendar::-webkit-scrollbar {
-          // display: none;
           width: 5px;
 
           background-color: none;
-          // border
         }
         #calendar {
           overflow-y: scroll;
-          // overflow-x: hidden;
         }
         .square {
-          // width: 50px;
           color: $primary-color;
-          // aspect-ratio: 1;
           cursor: pointer;
-          // height: 50px;
 
           background: white;
         }
@@ -289,37 +269,26 @@ export default {
       .left {
         width: 35%;
         height: 100%;
-        // background: green;
         #calendar::-webkit-scrollbar-thumb {
-          // display: none;
-          // width: 5px;
-          // height: 10px;
           background-color: white;
           border-radius: 5px;
         }
         #calendar::-webkit-scrollbar {
-          // display: none;
           width: 5px;
 
           background-color: none;
-          // border
         }
         #calendar {
           overflow-y: scroll;
-          // overflow-x: hidden;
         }
         .square {
-          // width: 50px;
           color: $primary-color;
-          // aspect-ratio: 1;
           cursor: pointer;
-          // height: 50px;
 
           background: white;
 
           &:hover {
             background-color: rgb(231, 231, 231);
-            // border: 3px solid rgb(231, 231, 231);
           }
         }
       }

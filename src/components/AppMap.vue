@@ -43,7 +43,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@use "../scss/partials/variables" as *;
 
 .map-wrap {
   position: relative;
@@ -59,7 +58,5 @@ onMounted(() => {
   position: absolute;
   width: 85%;
   aspect-ratio: 1
-
-  /* height: 100%; */
 }
 </style>
