@@ -73,7 +73,7 @@
                         <p class="fs-5">
                           {{ curData.descrizione }}
                           <!-- <AppMap :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop /> -->
-                          <AppSuca :longitudine="Number(curData.longitudine)" :latitudine="Number(curData.latitudine)" />
+                          <AppMap :longitudine="Number(curData.longitudine)" :latitudine="Number(curData.latitudine)" />
                         </p>
                       </div>
                       <div v-else>
@@ -102,13 +102,11 @@ import AppMap from "./AppMap.vue";
 
 import { store } from "../store";
 import { DateTime } from "luxon";
-import AppSuca from "./AppSuca.vue";
 
 export default {
   components: {
     AppCard,
     AppMap,
-    AppSuca
   },
 
   methods: {
