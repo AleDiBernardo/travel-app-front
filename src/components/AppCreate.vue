@@ -1,18 +1,28 @@
 <template>
   <div class="ms_bg p-5">
     <form @submit.prevent action="" class="bg-white py-3 px-5 rounded">
-      <h1 class="text-center" >Aggiungi Nuova Tappa</h1>
+      <h1 class="text-center">Aggiungi Nuova Tappa</h1>
 
       <!-- File Input for Image -->
       <div class="mb-3">
         <label for="image" class="form-label">Carica Immagine</label>
-        <input type="file" id="image" class="form-control" @change="handleFileUpload" />
+        <input
+          type="file"
+          id="image"
+          class="form-control"
+          @change="handleFileUpload"
+        />
       </div>
 
       <!-- Date Input -->
       <div class="mb-3">
         <label for="date" class="form-label">Data</label>
-        <input type="date" id="date" class="form-control" v-model="formData.data" />
+        <input
+          type="date"
+          id="date"
+          class="form-control"
+          v-model="formData.data"
+        />
       </div>
 
       <!-- Text Input for Title -->
@@ -57,18 +67,17 @@
   </div>
 </template>
 
-
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
       formData: {
-        data: '',
-        titolo: '',
-        luogo: '',
-        descrizione: ''
+        data: "",
+        titolo: "",
+        luogo: "",
+        descrizione: "",
       },
       selectedFile: null,
       viaggioId: null,
@@ -80,34 +89,48 @@ export default {
   methods: {
     handleFileUpload(event) {
       // console.log(event);
-      
+
       // Cattura il file selezionato
       this.selectedFile = event.target.files[0];
       // console.log(this.selectedFile);
     },
-    async submitForm() {
+    submitForm() {
       let data = new FormData();
       data.append("viaggio_id", this.viaggioId);
       data.append("immagine", this.selectedFile);
       data.append("data", this.formData.data);
+      console.log(this.formData.data);
+
       data.append("titolo", this.formData.titolo);
       data.append("luogo", this.formData.luogo);
       data.append("descrizione", this.formData.descrizione);
-      // console.log(data);
-      
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/api/stages', data,  {
-        headers: {
-            'Content-Type': 'multipart/form-data',
+      console.log(data);
+
+      // try {
+      axios
+        .post("http://127.0.0.1:8000/api/stages", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
           },
+        })
+        .then((response) => {
+          console.log("Tappa salvata con successo:", response);
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 422) {
+            console.error("Errore di validazione:", error.response.data.errors);
+            // Mostra gli errori di validazione nel frontend
+          } else {
+            console.error("Errore nella richiesta:", error.message);
+          }
         });
-        console.log('Tappa salvata con successo:', response);
-      } catch (error) {
-        console.error('Errore nel salvataggio della tappa:', error);
-      }
-    }
-  }
-}
+      // console.log('Tappa salvata con successo:', response);
+      // } catch (error) {
+      //   console.error('Errore nel salvataggio della tappa:', error);
+      // }
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
