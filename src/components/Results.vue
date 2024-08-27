@@ -18,7 +18,7 @@
         <div class="top d-flex gap-4">
           <div class="img rounded rounded-3 d-flex justify-content-center align-items-center">
             <!-- {{ this.printSelectedStageImage() }} -->
-            <img v-if="this.printSelectedStageImage() !== null" :src="`http://127.0.0.1:8000/storage/${this.printSelectedStageImage()}`" class="w-100 h-100"/>
+            <img v-if="this.printSelectedStageImage()" :src="`http://127.0.0.1:8000/storage/${this.printSelectedStageImage()}`" class="w-100 h-100 rounded rounded-3"/>
             <p v-else class="text-white fw-bold fs-4">Immagine non disponibile</p>
 
           </div>
