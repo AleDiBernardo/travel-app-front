@@ -53,7 +53,10 @@
             </div>
           </div>
           <div class="right d-flex flex-column fw-bold">
-            <h2>Tappe</h2>
+            <div class="d-flex justify-content-between">
+              <h2>Tappe</h2>
+              <a href="#" class="d-flex justify-content-center align-items-center text-decoration-none"><i class="fa-solid fa-plus text-white fs-3"></i></a>
+            </div>
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
                 <div
