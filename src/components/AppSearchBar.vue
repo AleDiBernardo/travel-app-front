@@ -29,7 +29,7 @@ export default {
     getTrips(){
       axios.get('http://127.0.0.1:8000/api/trips')
       .then(resp => {
-        console.log(resp.data.results);
+        // console.log(resp.data.results);
         this.store.tripsList = resp.data.results;
       })
     }

@@ -6,8 +6,6 @@
       </div>
     </div>
 
-
-
     <div
       class="overlay d-flex justify-content-center align-items-center"
       v-if="this.store.modalOpen"
@@ -18,7 +16,12 @@
         @click.stop
       >
         <div class="top d-flex gap-4">
-          <div class="img rounded rounded-3"></div>
+          <div class="img rounded rounded-3 d-flex justify-content-center align-items-center">
+            <!-- {{ this.printSelectedStageImage() }} -->
+            <img v-if="this.printSelectedStageImage() !== null" :src="`http://127.0.0.1:8000/storage/${this.printSelectedStageImage()}`" class="w-100 h-100"/>
+            <p v-else class="text-white fw-bold fs-4">Immagine non disponibile</p>
+
+          </div>
           <div class="info rounded rounded-3 p-3 text-white d-flex flex-column">
             <h2 class="fw-bold">{{ this.store.modalInfo.titolo }}</h2>
             <h4>{{ this.store.modalInfo.destinazione }}</h4>
@@ -54,7 +57,7 @@
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
                 <div
-                  @click="openStage(index)"
+                  @click="openStage(index, curData.id)"
                   class="col"
                   v-if="this.store.stages.length > 0"
                   v-for="(curData, index) in this.store.stages"
@@ -74,16 +77,16 @@
                         </p>
                       </div>
                       <div v-else>
-                        <p>
-                          Descrizione non disponibile
-                         
-                        </p>
+                        <p>Descrizione non disponibile</p>
                       </div>
-                      
-                      
                     </div>
-                    <AppMap v-if="this.stageClicked && this.selectedStage === index" class=" rounded rounded-3 border-white " :lng="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop />
-                   
+                    <AppMap
+                      v-if="this.stageClicked && this.selectedStage === index"
+                      class="rounded rounded-3 border-white"
+                      :lng="Number(curData.longitudine)"
+                      :lat="Number(curData.latitudine)"
+                      @click.stop
+                    />
                   </div>
                 </div>
                 <p v-else class="fs-3 text-center">Non ci sono tappe</p>
@@ -100,8 +103,6 @@
 import AppCard from "./AppCard.vue";
 import AppMap from "./AppMap.vue";
 
-
-
 import { store } from "../store";
 import { DateTime } from "luxon";
 
@@ -115,9 +116,11 @@ export default {
     showStages(data, index) {
       this.selectedIndex = index;
       this.stageClicked = false;
-      console.log(this.store.modalInfo);
+      // console.log(this.store.modalInfo);
 
+      // console.log(this.store.stages);
       this.store.stages = [];
+
       let formattedData = this.formatData(data);
       // console.log("FormattedData: " + formattedData);
 
@@ -134,19 +137,34 @@ export default {
       this.stageClicked = false;
       this.selectedIndex = 0;
       this.store.stages = [];
-      
     },
-    openStage(index) {
+    openStage(index, id) {
       index !== this.selectedStage
         ? (this.stageClicked = true)
         : (this.stageClicked = !this.stageClicked);
-
+      console.log("SelectedStage: " + this.selectedStage);
+      console.log("ID: " + id);
+      this.selectedId = id;
       this.selectedStage = index;
 
-      console.log(this.store.modalInfo.stages[index].longitudine);
-      console.log(this.store.modalInfo.stages[index].latitudine);
+      // console.log(this.store.modalInfo.stages[index].longitudine);
+      // console.log(this.store.modalInfo.stages[index].latitudine);
+    },
+    printSelectedStageImage() {
+      if (this.selectedId) {
+        const selectedStage = this.store.stages.find(
+          (stage) => stage.id === this.selectedId
+        );
 
-      
+        if (selectedStage) {
+          console.log("Selected Stage Image:", selectedStage.immagine);
+          return selectedStage.immagine;
+        } else {
+          return null
+        }
+      } else {
+        console.log("No stage selected");
+      }
     },
     formatData(dataString) {
       const parti = dataString.split(" ");
@@ -191,7 +209,8 @@ export default {
       modalData: null,
       selectedIndex: 0,
       stageClicked: false,
-      selectedStage: null,
+      selectedStage: 0,
+      selectedId: 0,
     };
   },
 };

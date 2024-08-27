@@ -1,12 +1,10 @@
 <template>
   <div class="card border border-0">
     <div class="card-body d-flex flex-column gap-1">
-      <div class="img-container rounded rounded-3"></div>
-      <!-- <div
-        class="title-container rounded rounded-3 d-flex justify-content-center align-items-center"
-      >
-        {{ this.results.titolo }}
-      </div> -->
+      <div class="img-container rounded rounded-3">
+        <!-- <img :src="`http://127.0.0.1:8000/storage/stages/p1.webp`"/> -->
+      </div>
+     
       <button
         type="button"
         class="border border-0 btn btn-primary title-container rounded rounded-3 d-flex justify-content-center align-items-center"
@@ -34,12 +32,11 @@ export default {
   },
   methods: {
     openModal() {
-      
       this.store.modalInfo = this.results;
       this.store.days = this.getDays();
       this.store.modalOpen = true;
 
-      console.log(this.store.modalOpen);
+      // console.log(this.store.modalOpen);
     },
     getDays() {
       const inizio = DateTime.fromISO(this.store.modalInfo.data_inizio);
@@ -49,13 +46,14 @@ export default {
 
       this.date = [];
       for (let i = 0; i < giorni; i++) {
-        const data = inizio.plus({ days: i }).setLocale('it').toFormat('dd LLL yyyy');
-        
+        const data = inizio
+          .plus({ days: i })
+          .setLocale("it")
+          .toFormat("dd LLL yyyy");
+
         // const dataFormattata = data.toLocaleString(DateTime.MED);
         this.date.push(data);
-        
       }
-      
 
       return this.date;
     },
@@ -70,6 +68,7 @@ export default {
   .card-body {
     .img-container {
       height: 80%;
+      
       background: red;
     }
     .title-container {

@@ -18,7 +18,7 @@ const props = defineProps({
 });
 
 onMounted(() => {
-  console.log(props.lat);
+  // console.log(props.lat);
 
   config.apiKey = "HAdhhdWUNFeYBPsN7Itt";
 
