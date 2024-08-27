@@ -136,6 +136,7 @@ export default {
       this.store.modalOpen = false;
       this.stageClicked = false;
       this.selectedIndex = 0;
+      this.selectedStage = 0;
       this.store.stages = [];
     },
     openStage(index, id) {
