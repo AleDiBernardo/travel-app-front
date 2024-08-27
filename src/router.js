@@ -10,7 +10,7 @@ const routes = [
     },
     // TEST
     {
-        path: "/create",
+        path: "/create/:id",
         name: "Create",
         component: AppCreate,
     },

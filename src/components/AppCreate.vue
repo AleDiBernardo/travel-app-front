@@ -1,18 +1,18 @@
 <template>
   <div class="ms_bg p-5">
-    <form action="" class="bg-white py-3 px-5 rounded">
+    <form @submit.prevent action="" class="bg-white py-3 px-5 rounded">
       <h1 class="text-center" >Aggiungi Nuova Tappa</h1>
 
       <!-- File Input for Image -->
       <div class="mb-3">
         <label for="image" class="form-label">Carica Immagine</label>
-        <input type="file" id="image" class="form-control" />
+        <input type="file" id="image" class="form-control" @change="handleFileUpload" />
       </div>
 
       <!-- Date Input -->
       <div class="mb-3">
         <label for="date" class="form-label">Data</label>
-        <input type="date" id="date" class="form-control" />
+        <input type="date" id="date" class="form-control" v-model="formData.data" />
       </div>
 
       <!-- Text Input for Title -->
@@ -23,6 +23,7 @@
           id="title"
           class="form-control"
           placeholder="Inserisci il titolo"
+          v-model="formData.titolo"
         />
       </div>
 
@@ -34,6 +35,7 @@
           id="location"
           class="form-control"
           placeholder="Inserisci il luogo"
+          v-model="formData.luogo"
         />
       </div>
 
@@ -45,19 +47,67 @@
           class="form-control"
           rows="2"
           placeholder="Inserisci una descrizione"
+          v-model="formData.descrizione"
         ></textarea>
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="btn">Salva Tappa</button>
+      <button type="submit" class="btn" @click="submitForm">Salva Tappa</button>
     </form>
   </div>
 </template>
 
+
 <script>
+import axios from 'axios';
+
 export default {
-  name: "FormComponent",
-};
+  data() {
+    return {
+      formData: {
+        data: '',
+        titolo: '',
+        luogo: '',
+        descrizione: ''
+      },
+      selectedFile: null,
+      viaggioId: null,
+    };
+  },
+  created() {
+    this.viaggioId = this.$route.params.id;
+  },
+  methods: {
+    handleFileUpload(event) {
+      // console.log(event);
+      
+      // Cattura il file selezionato
+      this.selectedFile = event.target.files[0];
+      // console.log(this.selectedFile);
+    },
+    async submitForm() {
+      let data = new FormData();
+      data.append("viaggio_id", this.viaggioId);
+      data.append("immagine", this.selectedFile);
+      data.append("data", this.formData.data);
+      data.append("titolo", this.formData.titolo);
+      data.append("luogo", this.formData.luogo);
+      data.append("descrizione", this.formData.descrizione);
+      // console.log(data);
+      
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/stages', data,  {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log('Tappa salvata con successo:', response);
+      } catch (error) {
+        console.error('Errore nel salvataggio della tappa:', error);
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
