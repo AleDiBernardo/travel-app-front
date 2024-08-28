@@ -77,8 +77,7 @@
                       <div v-if="curData.descrizione">
                         <p class="fs-5">
                           {{ curData.descrizione }}
-                          <!-- <AppMap :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop /> -->
-                          <AppMap :longitudine="Number(curData.longitudine)" :latitudine="Number(curData.latitudine)" />
+                        
                         </p>
                       </div>
                       <div v-else>
@@ -142,6 +141,7 @@ export default {
       this.stageClicked = false;
       this.selectedIndex = 0;
       this.selectedStage = 0;
+      this.selectedId = 0;
       this.store.stages = [];
     },
     openStage(index, id) {
@@ -155,8 +155,6 @@ export default {
 
       // console.log(this.store.modalInfo.stages[index].longitudine);
       // console.log(this.store.modalInfo.stages[index].latitudine);
-    },
-      
     },
     getDate(index){
       
@@ -210,11 +208,12 @@ export default {
       if (!query) {
         return this.store.tripsList;
       }
-
+  
       return this.store.tripsList.filter((trip) => {
         return trip.titolo.toLowerCase().includes(query);
       });
-    },
+    }
+
   },
   data() {
     return {
@@ -225,8 +224,8 @@ export default {
       selectedStage: 0,
       selectedId: 0,
     };
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss" scoped>
