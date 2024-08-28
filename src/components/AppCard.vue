@@ -33,9 +33,12 @@ export default {
   methods: {
     openModal() {
       this.store.modalInfo = this.results;
+      // console.log("Dati Viaggio: " + this.store.modalInfo.titolo);
+      
       this.store.days = this.getDays();
       this.store.modalOpen = true;
-
+      // console.log(this.store.days);
+      
       // console.log(this.store.modalOpen);
     },
     getDays() {
@@ -43,7 +46,8 @@ export default {
       const fine = DateTime.fromISO(this.store.modalInfo.data_fine);
       const differenza = fine.diff(inizio, "days");
       const giorni = differenza.values.days + 1; // Includiamo anche il giorno finale
-
+      // console.log("Giorni : " + giorni);
+      
       this.date = [];
       for (let i = 0; i < giorni; i++) {
         const data = inizio
@@ -54,7 +58,8 @@ export default {
         // const dataFormattata = data.toLocaleString(DateTime.MED);
         this.date.push(data);
       }
-
+      // console.log("Date: " + this.date);
+      
       return this.date;
     },
   },

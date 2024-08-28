@@ -6,6 +6,7 @@ export const store = reactive({
     modalInfo: null,
     modalOpen: false,
     stages: [],
-    curDate: null
+    curDate: null,
+    days: null
     
 });

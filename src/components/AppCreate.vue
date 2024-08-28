@@ -92,12 +92,12 @@ export default {
       data.append("viaggio_id", this.viaggioId);
       data.append("immagine", this.selectedFile);
       data.append("data", this.formData.data);
-      console.log(this.formData.data);
+      console.log("Form: " + this.formData.data);
       
       data.append("titolo", this.formData.titolo);
       data.append("luogo", this.formData.luogo);
       data.append("descrizione", this.formData.descrizione);
-      console.log(data);
+      console.log("Data: " + data);
 
       // try {
       axios

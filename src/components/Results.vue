@@ -118,18 +118,14 @@ export default {
 
   methods: {
     showStages(data, index) {
+      
       this.selectedIndex = index;
       this.stageClicked = false;
-      // console.log(this.store.modalInfo);
-
-      // console.log(this.store.stages);
       this.store.stages = [];
 
       let formattedData = this.formatData(data);
-      // console.log("FormattedData: " + formattedData);
 
       this.store.modalInfo.stages.forEach((stage) => {
-        // console.log("Data Stage: " + stage.data);
 
         if (stage.data == formattedData) {
           this.store.stages.push(stage);
@@ -148,18 +144,14 @@ export default {
       index !== this.selectedStage
         ? (this.stageClicked = true)
         : (this.stageClicked = !this.stageClicked);
-      console.log("SelectedStage: " + this.selectedStage);
-      console.log("ID: " + id);
       this.selectedId = id;
       this.selectedStage = index;
-
-      // console.log(this.store.modalInfo.stages[index].longitudine);
-      // console.log(this.store.modalInfo.stages[index].latitudine);
     },
     getDate(index){
+      console.log(this.store.days[index]);
       
-      this.store.curDate =  DateTime.fromFormat(this.store.days[index] , 'dd LLL yyyy').toISODate();
-      console.log(this.store.curDate);
+      this.store.curDate =  DateTime.fromFormat(this.store.days[index] , 'dd LLL yyyy', { locale: 'it' }).toISODate();
+      console.log("Formattata: " + this.store.curDate);
     },
     printSelectedStageImage() {
       if (this.selectedId) {
@@ -168,14 +160,11 @@ export default {
         );
 
         if (selectedStage) {
-          console.log("Selected Stage Image:", selectedStage.immagine);
           return selectedStage.immagine;
         } else {
           return null
         }
-      } else {
-        console.log("No stage selected");
-      }
+      } 
     },
     formatData(dataString) {
       const parti = dataString.split(" ");
