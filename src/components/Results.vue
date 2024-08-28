@@ -67,9 +67,14 @@
                   :key="index"
                 >
                   <div
-                    class="square rounded rounded-3 d-flex flex-column justify-content-center align-items-center"
+                    class="square rounded rounded-3 px-1 d-flex flex-column justify-content-center align-items-center"
                   >
-                    <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
+                    <div class="d-flex justify-content-between w-100">
+                      <!-- dont look here -->
+                      <div></div>
+                      <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
+                      <button class="btn text-danger" @click="deleteStage(curData.id)"><i class="fa-solid fa-trash"></i></button>
+                    </div>
                     <div
                       v-if="this.stageClicked && this.selectedStage === index"
                       class="d-flex flex-column justify-content-start align-items-start"
@@ -109,6 +114,7 @@ import AppMap from "./AppMap.vue";
 
 import { store } from "../store";
 import { DateTime } from "luxon";
+import axios from "axios";
 
 export default {
   components: {
@@ -131,6 +137,7 @@ export default {
           this.store.stages.push(stage);
         }
       });
+      
     },
     closeModal() {
       this.store.modalOpen = false;
@@ -190,6 +197,14 @@ export default {
 
       return dataFormattata;
     },
+    deleteStage(id) {
+      console.log(this.store.stages);
+      console.log(this.selectedStage);
+      
+      axios.delete(`http://127.0.0.1:8000/api/stages/${this.selectedId}`);
+      this.store.stages.splice(this.selectedStage, 0);
+      
+    }
   },
   computed: {
     filteredTrips() {
