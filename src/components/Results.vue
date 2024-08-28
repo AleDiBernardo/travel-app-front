@@ -50,7 +50,7 @@
           <div class="right d-flex flex-column fw-bold">
             <div class="d-flex justify-content-between align-items-center">
               <h2>Tappe</h2>
-              <router-link :to="`/create/${store.modalInfo.id}`" class="btn bg-white ms_btn">+</router-link>
+              <router-link :to="`/create/${store.modalInfo.id}`" @click="getDate(this.selectedIndex)" class="btn bg-white ms_btn">+</router-link>
             </div>
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
@@ -144,6 +144,12 @@ export default {
       console.log(this.store.modalInfo.stages[index].longitudine);
       console.log(this.store.modalInfo.stages[index].latitudine);
 
+      
+    },
+    getDate(index){
+      
+      this.store.curDate =  DateTime.fromFormat(this.store.days[index] , 'dd LLL yyyy').toISODate();
+      console.log(this.store.curDate);
       
     },
     formatData(dataString) {

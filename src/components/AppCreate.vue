@@ -14,16 +14,6 @@
         />
       </div>
 
-      <!-- Date Input -->
-      <div class="mb-3">
-        <label for="date" class="form-label">Data</label>
-        <input
-          type="date"
-          id="date"
-          class="form-control"
-          v-model="formData.data"
-        />
-      </div>
 
       <!-- Text Input for Title -->
       <div class="mb-3">
@@ -69,10 +59,12 @@
 
 <script>
 import axios from "axios";
+import { store } from "../store";
 
 export default {
   data() {
     return {
+      store,
       formData: {
         data: "",
         titolo: "",
@@ -85,6 +77,7 @@ export default {
   },
   created() {
     this.viaggioId = this.$route.params.id;
+    this.formData.data = this.store.curDate;
   },
   methods: {
     handleFileUpload(event) {
@@ -100,7 +93,7 @@ export default {
       data.append("immagine", this.selectedFile);
       data.append("data", this.formData.data);
       console.log(this.formData.data);
-
+      
       data.append("titolo", this.formData.titolo);
       data.append("luogo", this.formData.luogo);
       data.append("descrizione", this.formData.descrizione);
