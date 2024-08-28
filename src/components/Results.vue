@@ -53,9 +53,9 @@
             </div>
           </div>
           <div class="right d-flex flex-column fw-bold">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between align-items-center">
               <h2>Tappe</h2>
-              <a href="#" class="d-flex justify-content-center align-items-center text-decoration-none"><i class="fa-solid fa-plus text-white fs-3"></i></a>
+              <router-link :to="`/create/${store.modalInfo.id}`" @click="getDate(this.selectedIndex)" class="btn bg-white ms_btn">+</router-link>
             </div>
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
@@ -77,6 +77,8 @@
                       <div v-if="curData.descrizione">
                         <p class="fs-5">
                           {{ curData.descrizione }}
+                          <!-- <AppMap :lon="Number(curData.longitudine)" :lat="Number(curData.latitudine)" @click.stop /> -->
+                          <AppMap :longitudine="Number(curData.longitudine)" :latitudine="Number(curData.latitudine)" />
                         </p>
                       </div>
                       <div v-else>
@@ -153,6 +155,13 @@ export default {
 
       // console.log(this.store.modalInfo.stages[index].longitudine);
       // console.log(this.store.modalInfo.stages[index].latitudine);
+    },
+      
+    },
+    getDate(index){
+      
+      this.store.curDate =  DateTime.fromFormat(this.store.days[index] , 'dd LLL yyyy').toISODate();
+      console.log(this.store.curDate);
     },
     printSelectedStageImage() {
       if (this.selectedId) {
@@ -250,6 +259,12 @@ export default {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     transform: translate(-50%, -50%);
     background: white;
+
+    .ms_btn {
+      color: $primary-color;
+      font-weight: bolder;
+      font-size: larger;
+    }
 
     .top {
       .img {

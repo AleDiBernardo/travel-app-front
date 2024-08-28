@@ -5,6 +5,7 @@ export const store = reactive({
     userQuery: "",
     modalInfo: null,
     modalOpen: false,
-    stages: []
+    stages: [],
+    curDate: null
     
 });
