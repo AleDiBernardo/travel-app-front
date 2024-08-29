@@ -7,10 +7,11 @@
      
       <button
         type="button"
-        class="border border-0 btn btn-primary title-container rounded rounded-3 d-flex justify-content-center align-items-center"
+        class="border border-0 btn btn-primary title-container rounded rounded-3 d-flex justify-content-center align-items-center position-relative"
         @click="openModal()"
       >
         {{ this.results.titolo }}
+        <i class="fa-solid fa-square-up-right position-absolute" id="linkIcon"></i>
       </button>
     </div>
   </div>
@@ -82,6 +83,11 @@ export default {
       color: $white;
       font-size: 20px;
       font-weight: bold;
+
+      #linkIcon{
+        right: 5px;
+        top: 5px;
+      }
     }
   }
 }
