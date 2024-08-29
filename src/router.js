@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AppMain from "./components/AppMain.vue";
 import AppCreate from "./components/AppCreate.vue";
+import AppEditStage from "./components/AppEditStage.vue";
 
 const routes = [
     {
@@ -8,12 +9,16 @@ const routes = [
         name: "Main",
         component: AppMain,
     },
-    // TEST
     {
         path: "/create/:id",
         name: "Create",
         component: AppCreate,
     },
+    {
+        path: "/edit/:id",
+        name: "Edit",
+        component: AppEditStage,
+    }
 ];
 
 const router = createRouter({
