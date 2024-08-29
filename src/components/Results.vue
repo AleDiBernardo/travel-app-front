@@ -65,8 +65,8 @@
               <router-link
                 :to="`/create/${store.modalInfo.id}`"
                 @click="getDate(this.selectedIndex)"
-                class="btn bg-white ms_btn"
-                >+</router-link
+                class="btn fs-3 text-white fw-bold"
+                ><i class="fa-solid fa-plus"></i></router-link
               >
             </div>
             <div class="container p-3" id="calendar">
@@ -285,11 +285,7 @@ export default {
     transform: translate(-50%, -50%);
     background: white;
 
-    .ms_btn {
-      color: $primary-color;
-      font-weight: bolder;
-      font-size: larger;
-    }
+    
 
     .top {
       .img {
