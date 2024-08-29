@@ -1,5 +1,10 @@
 <template>
   <div class="ms_bg p-5">
+    
+    <div v-if="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
     <form @submit.prevent action="" class="bg-white py-3 px-5 rounded">
       <h1 class="text-center">Aggiungi Nuova Tappa</h1>
 
@@ -73,6 +78,7 @@ export default {
       },
       selectedFile: null,
       viaggioId: null,
+      errorMessage: null,
     };
   },
   created() {
@@ -108,14 +114,17 @@ export default {
         })
         .then((response) => {
           console.log("Tappa salvata con successo:", response);
+          this.store.stages.push(response.data);
+          this.$router.push('/');
         })
         .catch((error) => {
-          if (error.response && error.response.status === 422) {
-            console.error("Errore di validazione:", error.response.data.errors);
-            // Mostra gli errori di validazione nel frontend
-          } else {
-            console.error("Errore nella richiesta:", error.message);
-          }
+          this.errorMessage = "Errore nella creazione della tappa.";          
+          // if (error.response && error.response.status === 422) {
+          //   console.error("Errore di validazione:", error.response.data.errors);
+          //   // Mostra gli errori di validazione nel frontend
+          // } else {
+          //   console.error("Errore nella richiesta:", error.message);
+          // }
         });
       // console.log('Tappa salvata con successo:', response);
       // } catch (error) {
