@@ -16,11 +16,18 @@
         @click.stop
       >
         <div class="top d-flex gap-4">
-          <div class="img rounded rounded-3 d-flex justify-content-center align-items-center">
+          <div
+            class="img rounded rounded-3 d-flex justify-content-center align-items-center"
+          >
             <!-- {{ this.printSelectedStageImage() }} -->
-            <img v-if="this.printSelectedStageImage()" :src="`http://127.0.0.1:8000/storage/${this.printSelectedStageImage()}`" class="w-100 h-100 rounded rounded-3"/>
-            <p v-else class="text-white fw-bold fs-4">Immagine non disponibile</p>
-
+            <img
+              v-if="this.printSelectedStageImage()"
+              :src="`http://127.0.0.1:8000/storage/${this.printSelectedStageImage()}`"
+              class="w-100 h-100 rounded rounded-3"
+            />
+            <p v-else class="text-white fw-bold fs-4">
+              Immagine non disponibile
+            </p>
           </div>
           <div class="info rounded rounded-3 p-3 text-white d-flex flex-column">
             <h2 class="fw-bold">{{ this.store.modalInfo.titolo }}</h2>
@@ -55,7 +62,12 @@
           <div class="right d-flex flex-column fw-bold">
             <div class="d-flex justify-content-between align-items-center">
               <h2>Tappe</h2>
-              <router-link :to="`/create/${store.modalInfo.id}`" @click="getDate(this.selectedIndex)" class="btn bg-white ms_btn">+</router-link>
+              <router-link
+                :to="`/create/${store.modalInfo.id}`"
+                @click="getDate(this.selectedIndex)"
+                class="btn bg-white ms_btn"
+                >+</router-link
+              >
             </div>
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
@@ -69,11 +81,16 @@
                   <div
                     class="square rounded rounded-3 px-1 d-flex flex-column justify-content-center align-items-center"
                   >
-                    <!-- <div class="d-flex justify-content-between w-100"> -->
-                      <!-- dont look here -->
-                      <!-- <div></div> -->
+                    <div class="d-flex justify-content-center align-items-center w-100 position-relative">
                       <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
-                    <!-- </div> -->
+                      <button
+                        class="btn text-danger position-absolute end-0"
+                        @click="deleteStage(curData.id, index)"
+                        @click.stop
+                      >
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
                     <div
                       v-if="this.stageClicked && this.selectedStage === index"
                       class="d-flex flex-column justify-content-start align-items-start"
@@ -81,7 +98,6 @@
                       <div v-if="curData.descrizione">
                         <p class="fs-5">
                           {{ curData.descrizione }}
-                        
                         </p>
                       </div>
                       <div v-else>
@@ -95,9 +111,6 @@
                       :lat="Number(curData.latitudine)"
                       @click.stop
                     />
-                    <button v-if="this.stageClicked && this.selectedStage === index" class="btn text-danger" @click="deleteStage(curData.id,index)"><i class="fa-solid fa-trash"></i></button>
-
-
                   </div>
                 </div>
                 <p v-else class="fs-3 text-center">Non ci sono tappe</p>
@@ -126,7 +139,6 @@ export default {
 
   methods: {
     showStages(data, index) {
-      
       this.selectedIndex = index;
       this.stageClicked = false;
       this.store.stages = [];
@@ -134,12 +146,10 @@ export default {
       let formattedData = this.formatData(data);
 
       this.store.modalInfo.stages.forEach((stage) => {
-
         if (stage.data == formattedData) {
           this.store.stages.push(stage);
         }
       });
-      
     },
     closeModal() {
       this.store.modalOpen = false;
@@ -156,12 +166,15 @@ export default {
       this.selectedId = id;
       this.selectedStage = index;
       console.log(this.selectedStage);
-      
     },
-    getDate(index){
+    getDate(index) {
       console.log(this.store.days[index]);
-      
-      this.store.curDate =  DateTime.fromFormat(this.store.days[index] , 'dd LLL yyyy', { locale: 'it' }).toISODate();
+
+      this.store.curDate = DateTime.fromFormat(
+        this.store.days[index],
+        "dd LLL yyyy",
+        { locale: "it" }
+      ).toISODate();
       console.log("Formattata: " + this.store.curDate);
     },
     printSelectedStageImage() {
@@ -173,9 +186,9 @@ export default {
         if (selectedStage) {
           return selectedStage.immagine;
         } else {
-          return null
+          return null;
         }
-      } 
+      }
     },
     formatData(dataString) {
       const parti = dataString.split(" ");
@@ -201,14 +214,13 @@ export default {
 
       return dataFormattata;
     },
-    deleteStage(id,index) {
+    deleteStage(id, index) {
       // console.log("Store Stages: " + this.store.stages);
-      this.selectedIndex = index
+      this.selectedIndex = index;
       console.log("Selected Stage: " + this.selectedStage);
       axios.delete(`http://127.0.0.1:8000/api/stages/${id}`);
       this.store.stages.splice(this.selectedStage, 1);
-      
-    }
+    },
   },
   computed: {
     filteredTrips() {
@@ -216,12 +228,11 @@ export default {
       if (!query) {
         return this.store.tripsList;
       }
-  
+
       return this.store.tripsList.filter((trip) => {
         return trip.titolo.toLowerCase().includes(query);
       });
-    }
-
+    },
   },
   data() {
     return {
@@ -232,8 +243,8 @@ export default {
       selectedStage: 0,
       selectedId: 0,
     };
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
