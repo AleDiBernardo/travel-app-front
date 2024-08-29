@@ -66,8 +66,8 @@
                 :to="`/create/${store.modalInfo.id}`"
                 @click="getDate(this.selectedIndex)"
                 class="btn fs-3 text-white fw-bold"
-                ><i class="fa-solid fa-plus"></i></router-link
-              >
+                ><i class="fa-solid fa-plus"></i
+              ></router-link>
             </div>
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
@@ -85,6 +85,14 @@
                       class="d-flex justify-content-center align-items-center w-100 position-relative"
                     >
                       <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
+                      <router-link
+                        :to="`/edit/${curData.id}`"
+                        class="btn text-info-emphasis position-absolute start-0"
+                        @click="editStage(curData.id)"
+                        @click.stop
+                      >
+                        <i class="fa-solid fa-pen"></i>
+                      </router-link>
                       <button
                         class="btn text-danger position-absolute end-0"
                         @click="deleteStage(curData.id, index)"
@@ -132,6 +140,7 @@ import AppMap from "./AppMap.vue";
 import { store } from "../store";
 import { DateTime } from "luxon";
 import axios from "axios";
+import { RouterLink } from "vue-router";
 
 export default {
   components: {
@@ -227,7 +236,9 @@ export default {
             this.store.stages.splice(index, 1);
 
             // si prende l'id dello stage cancellato e lo si cerca anche nell'info del modale, perchè bisgona cancellarlo anche qui
-            const stageIndexInModal = this.store.modalInfo.stages.findIndex(stage => stage.id === id);
+            const stageIndexInModal = this.store.modalInfo.stages.findIndex(
+              (stage) => stage.id === id
+            );
             // se findIndex trova l'indice lo ritorna come risultato, se non lo trova ritorna 1
             if (stageIndexInModal !== -1) {
               this.store.modalInfo.stages.splice(stageIndexInModal, 1);
@@ -250,6 +261,9 @@ export default {
           );
         });
     },
+    editStage(id) {
+
+    }
   },
   computed: {
     filteredTrips() {
@@ -311,8 +325,6 @@ export default {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     transform: translate(-50%, -50%);
     background: white;
-
-    
 
     .top {
       .img {
