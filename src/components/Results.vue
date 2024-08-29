@@ -81,7 +81,9 @@
                   <div
                     class="square rounded rounded-3 px-1 d-flex flex-column justify-content-center align-items-center"
                   >
-                    <div class="d-flex justify-content-center align-items-center w-100 position-relative">
+                    <div
+                      class="d-flex justify-content-center align-items-center w-100 position-relative"
+                    >
                       <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
                       <button
                         class="btn text-danger position-absolute end-0"
@@ -126,7 +128,6 @@
 <script>
 import AppCard from "./AppCard.vue";
 import AppMap from "./AppMap.vue";
-
 
 import { store } from "../store";
 import { DateTime } from "luxon";
@@ -216,11 +217,38 @@ export default {
       return dataFormattata;
     },
     deleteStage(id, index) {
-      // console.log("Store Stages: " + this.store.stages);
-      this.selectedIndex = index;
-      console.log("Selected Stage: " + this.selectedStage);
-      axios.delete(`http://127.0.0.1:8000/api/stages/${id}`);
-      this.store.stages.splice(this.selectedStage, 1);
+      console.table(
+        "Stato delle tappe prima della cancellazione:" + this.store.stages
+      );
+      axios
+        .delete(`http://127.0.0.1:8000/api/stages/${id}`)
+        .then((response) => {
+          if (response.status === 200) {
+            this.store.stages.splice(index, 1);
+
+            // si prende l'id dello stage cancellato e lo si cerca anche nell'info del modale, perchè bisgona cancellarlo anche qui
+            const stageIndexInModal = this.store.modalInfo.stages.findIndex(stage => stage.id === id);
+            // se findIndex trova l'indice lo ritorna come risultato, se non lo trova ritorna 1
+            if (stageIndexInModal !== -1) {
+              this.store.modalInfo.stages.splice(stageIndexInModal, 1);
+            }
+            console.log(
+              "Tappa cancellata con successo. Stato delle tappe aggiornato:",
+              this.store.stages
+            );
+          } else {
+            console.error(
+              "Errore durante la cancellazione della tappa. Stato:",
+              response.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "Errore durante la chiamata API per cancellare la tappa:",
+            error
+          );
+        });
     },
   },
   computed: {
