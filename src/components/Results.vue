@@ -23,7 +23,7 @@
             <img
               v-if="this.printSelectedStageImage()"
               :src="`http://127.0.0.1:8000/storage/${this.printSelectedStageImage()}`"
-              class="w-100 h-100 rounded rounded-3"
+              class="w-100 h-100 rounded rounded-3 img-fluid"
             />
             <p v-else class="text-white fw-bold fs-4">
               Immagine non disponibile
@@ -81,7 +81,9 @@
                   <div
                     class="square rounded rounded-3 px-1 d-flex flex-column justify-content-center align-items-center"
                   >
-                    <div class="d-flex justify-content-center align-items-center w-100 position-relative">
+                    <div
+                      class="d-flex justify-content-center align-items-center w-100 position-relative"
+                    >
                       <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
                       <button
                         class="btn text-danger position-absolute end-0"
@@ -126,7 +128,6 @@
 <script>
 import AppCard from "./AppCard.vue";
 import AppMap from "./AppMap.vue";
-
 
 import { store } from "../store";
 import { DateTime } from "luxon";
@@ -254,6 +255,11 @@ export default {
   display: none;
 }
 .container-fluid {
+  .img-fluid {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .clicked {
     background-color: rgb(231, 231, 231) !important;
   }
