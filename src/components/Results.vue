@@ -69,12 +69,11 @@
                   <div
                     class="square rounded rounded-3 px-1 d-flex flex-column justify-content-center align-items-center"
                   >
-                    <div class="d-flex justify-content-between w-100">
+                    <!-- <div class="d-flex justify-content-between w-100"> -->
                       <!-- dont look here -->
-                      <div></div>
+                      <!-- <div></div> -->
                       <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
-                      <button class="btn text-danger" @click="deleteStage(curData.id)"><i class="fa-solid fa-trash"></i></button>
-                    </div>
+                    <!-- </div> -->
                     <div
                       v-if="this.stageClicked && this.selectedStage === index"
                       class="d-flex flex-column justify-content-start align-items-start"
@@ -96,6 +95,9 @@
                       :lat="Number(curData.latitudine)"
                       @click.stop
                     />
+                    <button v-if="this.stageClicked && this.selectedStage === index" class="btn text-danger" @click="deleteStage(curData.id,index)"><i class="fa-solid fa-trash"></i></button>
+
+
                   </div>
                 </div>
                 <p v-else class="fs-3 text-center">Non ci sono tappe</p>
@@ -153,6 +155,8 @@ export default {
         : (this.stageClicked = !this.stageClicked);
       this.selectedId = id;
       this.selectedStage = index;
+      console.log(this.selectedStage);
+      
     },
     getDate(index){
       console.log(this.store.days[index]);
@@ -197,12 +201,12 @@ export default {
 
       return dataFormattata;
     },
-    deleteStage(id) {
-      console.log(this.store.stages);
-      console.log(this.selectedStage);
-      
-      axios.delete(`http://127.0.0.1:8000/api/stages/${this.selectedId}`);
-      this.store.stages.splice(this.selectedStage, 0);
+    deleteStage(id,index) {
+      // console.log("Store Stages: " + this.store.stages);
+      this.selectedIndex = index
+      console.log("Selected Stage: " + this.selectedStage);
+      axios.delete(`http://127.0.0.1:8000/api/stages/${id}`);
+      this.store.stages.splice(this.selectedStage, 1);
       
     }
   },
