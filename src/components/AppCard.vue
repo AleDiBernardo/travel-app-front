@@ -1,8 +1,9 @@
 <template>
-  <div class="card border border-0">
-    <div class="card-body d-flex flex-column gap-1">
+  <div class="card border border-0 ">
+    <div class="card-body d-flex flex-column gap-1 h-100">
       <div class="img-container rounded rounded-3">
         <!-- <img :src="`http://127.0.0.1:8000/storage/stages/p1.webp`"/> -->
+        <AppCarousel :images="getStagesImages()"/>
       </div>
      
       <button
@@ -20,16 +21,30 @@
 <script>
 import { store } from "../store";
 import { DateTime } from "luxon";
+import AppCarousel from "./AppCarousel.vue";
+
 
 export default {
   props: {
     results: Object,
+  },
+  created(){
+    console.log(this.results.stages);
+
+    
   },
   data() {
     return {
       store,
       date: [],
     };
+  },
+  computed: {
+    
+  },
+  components:{
+    AppCarousel
+
   },
   methods: {
     openModal() {
@@ -41,6 +56,10 @@ export default {
       // console.log(this.store.days);
       
       // console.log(this.store.modalOpen);
+    },
+    getStagesImages() {
+      return this.results.stages.filter(stage => stage.immagine !== null)
+        .map(stage => stage.immagine);
     },
     getDays() {
       const inizio = DateTime.fromISO(this.store.modalInfo.data_inizio);
