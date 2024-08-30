@@ -68,8 +68,14 @@
                 class="btn fs-3 text-white fw-bold"
                 ><i class="fa-solid fa-plus"></i
               ></router-link> -->
-              <button class="btn fs-3 text-white fw-bold" @click="goToCreateStage(this.selectedIndex,this.store.modalInfo.id)"><i class="fa-solid fa-plus"></i
-                ></button>
+              <button
+                class="btn fs-3 text-white fw-bold"
+                @click="
+                  goToCreateStage(this.selectedIndex, this.store.modalInfo.id)
+                "
+              >
+                <i class="fa-solid fa-plus"></i>
+              </button>
             </div>
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
@@ -149,6 +155,15 @@ export default {
     AppCard,
     AppMap,
   },
+  watch: {
+    "store.modalOpen"() {
+      if (this.store.modalOpen) {
+        console.log("Click partito");
+
+        this.showStages(this.store.days[0], 0);
+      }
+    },
+  },
 
   methods: {
     showStages(data, index) {
@@ -189,15 +204,13 @@ export default {
         { locale: "it" }
       ).toISODate();
       console.log("Formattata: " + this.store.curDate);
-
     },
-    goToCreateStage(indexFelice,viaggio_id){
-
+    goToCreateStage(indexFelice, viaggio_id) {
       console.log(viaggio_id);
-      
+
       this.getDate(indexFelice);
       console.log(this.store.curDate);
-      
+
       window.location.href = `http://127.0.0.1:8000/stages/create?data=${this.store.curDate}&viaggio_id=${viaggio_id}`;
     },
     goToEditStage(id) {
@@ -277,9 +290,7 @@ export default {
           );
         });
     },
-    editStage(id) {
-
-    }
+    editStage(id) {},
   },
   computed: {
     filteredTrips() {
