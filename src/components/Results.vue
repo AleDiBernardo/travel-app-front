@@ -87,14 +87,14 @@
                       class="d-flex justify-content-center align-items-center w-100 position-relative"
                     >
                       <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
-                      <router-link
+                      <button
                         :to="`/edit/${curData.id}`"
                         class="btn text-info-emphasis position-absolute start-0"
-                        @click="editStage(curData.id)"
+                        @click="goToEditStage(curData.id)"
                         @click.stop
                       >
                         <i class="fa-solid fa-pen"></i>
-                      </router-link>
+                      </button>
                       <button
                         class="btn text-danger position-absolute end-0"
                         @click="deleteStage(curData.id, index)"
@@ -199,6 +199,10 @@ export default {
       console.log(this.store.curDate);
       
       window.location.href = `http://127.0.0.1:8000/stages/create?data=${this.store.curDate}&viaggio_id=${viaggio_id}`;
+    },
+    goToEditStage(id) {
+      console.log(id);
+      window.location.href = `http://127.0.0.1:8000/stages/${id}/edit`;
     },
     printSelectedStageImage() {
       if (this.selectedId) {
