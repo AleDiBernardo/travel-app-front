@@ -95,7 +95,8 @@
                       <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
                       <button
                         :to="`/edit/${curData.id}`"
-                        class="btn text-info-emphasis position-absolute start-0"
+                        id="editBtn"
+                        class="btn text-info-emphasis position-absolute"
                         @click="goToEditStage(curData.id)"
                         @click.stop
                       >
@@ -323,6 +324,9 @@ export default {
   display: none;
 }
 .container-fluid {
+  #editBtn{
+    right: 25px;
+  }
   .img-fluid {
     width: 100%;
     height: 100%;
