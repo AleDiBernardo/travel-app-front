@@ -68,7 +68,8 @@
                 class="btn fs-3 text-white fw-bold"
                 ><i class="fa-solid fa-plus"></i
               ></router-link> -->
-              <a href="http://127.0.0.1:8000/stages/create">+</a>
+              <button class="btn fs-3 text-white fw-bold" @click="goToCreateStage(this.selectedIndex,this.store.modalInfo.id)"><i class="fa-solid fa-plus"></i
+                ></button>
             </div>
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
@@ -188,6 +189,16 @@ export default {
         { locale: "it" }
       ).toISODate();
       console.log("Formattata: " + this.store.curDate);
+
+    },
+    goToCreateStage(indexFelice,viaggio_id){
+
+      console.log(viaggio_id);
+      
+      this.getDate(indexFelice);
+      console.log(this.store.curDate);
+      
+      window.location.href = `http://127.0.0.1:8000/stages/create?data=${this.store.curDate}&viaggio_id=${viaggio_id}`;
     },
     printSelectedStageImage() {
       if (this.selectedId) {
