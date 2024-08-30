@@ -72,7 +72,7 @@ export default {
     this.stageData = store.stages.find(
       (stage) => stage.id === Number(this.$route.params.id)
     );
-    // console.log(this.stageData);
+    console.log(this.stageData);
   },
   methods: {
     handleFileUpload(event) {

@@ -62,12 +62,13 @@
           <div class="right d-flex flex-column fw-bold">
             <div class="d-flex justify-content-between align-items-center">
               <h2>Tappe</h2>
-              <router-link
+              <!-- <router-link
                 :to="`/create/${store.modalInfo.id}`"
                 @click="getDate(this.selectedIndex)"
                 class="btn fs-3 text-white fw-bold"
                 ><i class="fa-solid fa-plus"></i
-              ></router-link>
+              ></router-link> -->
+              <a href="http://127.0.0.1:8000/stages/create">+</a>
             </div>
             <div class="container p-3" id="calendar">
               <div class="row row-cols-1 g-2">
