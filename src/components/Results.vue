@@ -29,10 +29,13 @@
               Immagine non disponibile
             </p>
           </div>
-          <div class="info rounded rounded-3 p-3 text-white d-flex flex-column">
+          <div class="info rounded rounded-3 p-3 text-white d-flex flex-column position-relative">
             <h2 class="fw-bold">{{ this.store.modalInfo.titolo }}</h2>
             <h4>{{ this.store.modalInfo.destinazione }}</h4>
             <p class="fs-4">{{ this.store.modalInfo.descrizione }}</p>
+            <button class="btn text-info-emphasis position-absolute bottom-0 end-0" @click="goToEditTrip(this.store.modalInfo.id)">
+              Modifica il viaggio <i class="fa-solid fa-pen"></i>
+            </button>
           </div>
         </div>
         <div
@@ -94,7 +97,6 @@
                     >
                       <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
                       <button
-                        :to="`/edit/${curData.id}`"
                         id="editBtn"
                         class="btn text-info-emphasis position-absolute"
                         @click="goToEditStage(curData.id)"
@@ -217,6 +219,10 @@ export default {
     goToEditStage(id) {
       console.log(id);
       window.location.href = `http://127.0.0.1:8000/stages/${id}/edit`;
+    },
+    goToEditTrip(id) {
+      console.log(id);
+      window.location.href = `http://127.0.0.1:8000/trips/${id}/edit`;
     },
     printSelectedStageImage() {
       if (this.selectedId) {
