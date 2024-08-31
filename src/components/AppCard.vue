@@ -1,19 +1,22 @@
 <template>
   <div class="card border border-0">
     <div class="card-body d-flex flex-column gap-1 h-100 position-relative">
-      <button
-        class="btn text-info-emphasis position-absolute top-0 end-0"
-        @click="goToEditTrip(this.results.id)"
-      >
-        <i class="fa-solid fa-pen"></i>
-      </button>
-      <button
-        id="delBtn"
-        class="btn text-danger position-absolute end-0"
-        @click="deleteTrip(this.results.id, this.index)"
-      >
-        <i class="fa-solid fa-trash"></i>
-      </button>
+      <div class="position-absolute z-3 d-flex flex-column p-2 gap-1 rounded rounded-3 ">
+
+        <button
+          class="btn text-white p-0"
+          @click="goToEditTrip(this.results.id)"
+        >
+          <i class="fa-solid fa-pen"></i>
+        </button>
+        <button
+          id="delBtn"
+          class="btn text-white p-0"
+          @click="deleteTrip(this.results.id, this.index)"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
       <div class="img-container rounded rounded-3">
         <!-- <img :src="`http://127.0.0.1:8000/storage/stages/p1.webp`"/> -->
         <AppCarousel :images="getStagesImages()" />
@@ -126,6 +129,12 @@ export default {
 .card {
   .bg {
     background: red;
+  }
+  .z-3{
+    right: 10px;
+    top: 10px;
+    background-color: $primary-color;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   }
   aspect-ratio: 1;
   .card-body {
