@@ -3,7 +3,7 @@
     <div class="search bg-white rounded-3 p-4 d-flex flex-column gap-5">
       <AppSearchBar/>
       <div class="buttons d-flex flex-column gap-3">
-        <button class="w-100 my_btn fs-5 p-2 fw-bold text-white rounded-3">Crea un viaggio</button>
+        <a href="http://127.0.0.1:8000/trips/create" class="text-center text-decoration-none w-100 my_btn fs-5 p-2 fw-bold text-white rounded-3">Crea un viaggio</a>
       </div>
     </div>
   </div>
