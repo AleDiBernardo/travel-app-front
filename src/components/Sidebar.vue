@@ -1,7 +1,10 @@
 <template>
   <div class="sidebar py-3 px-2"  @click="this.store.modalOpen = false">
-    <div class="search bg-white rounded-3 p-4">
+    <div class="search bg-white rounded-3 p-4 d-flex flex-column gap-5">
       <AppSearchBar/>
+      <div class="buttons d-flex flex-column gap-3">
+        <button class="w-100 my_btn fs-5 p-2 fw-bold text-white rounded-3">Crea un viaggio</button>
+      </div>
     </div>
   </div>
 </template>
@@ -26,11 +29,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "../scss/partials/variables" as *;
+
   .sidebar {
     // debug
     // background-color: lightcoral;
     width: 25%;
     height: 100%;
+
+    .my_btn{
+      background: none;
+      border: none;
+      background-color: $primary-color;
+      
+      &:hover{
+        background-color: lightgray;
+      }
+    }
   }
 @media (max-width: 768px) {
   .sidebar{
