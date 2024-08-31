@@ -88,21 +88,25 @@
                       class="d-flex justify-content-center align-items-center w-100 position-relative"
                     >
                       <div class="fs-3 fw-bold">{{ curData.titolo }}</div>
-                      <button
-                        id="editBtn"
-                        class="btn text-info-emphasis position-absolute"
-                        @click="goToEditStage(curData.id)"
-                        @click.stop
-                      >
-                        <i class="fa-solid fa-pen"></i>
-                      </button>
-                      <button
-                        class="btn text-danger position-absolute end-0"
-                        @click="deleteStage(curData.id, index)"
-                        @click.stop
-                      >
-                        <i class="fa-solid fa-trash"></i>
-                      </button>
+
+                      <div class="position-absolute btns p-1 px-2 end-0 d-flex gap-3 rounded rounded-3">
+
+                        <button
+                          id="editBtn"
+                          class="btn text-white  p-0"
+                          @click="goToEditStage(curData.id)"
+                          @click.stop
+                        >
+                          <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button
+                          class="btn text-white p-0"
+                          @click="deleteStage(curData.id, index)"
+                          @click.stop
+                        >
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
                     </div>
                     <div
                       v-if="this.stageClicked && this.selectedStage === index"
@@ -322,6 +326,9 @@ export default {
 .container-fluid {
   #editBtn{
     right: 25px;
+  }
+  .btns {
+    background-color: $primary-color;
   }
   .img-fluid {
     width: 100%;
