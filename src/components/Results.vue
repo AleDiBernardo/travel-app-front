@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid p-3">
     <div class="row row-cols-1 g-3" id="main-row">
-      <div class="col" v-for="curTrip in filteredTrips" :key="curTrip.id">
-        <AppCard :results="curTrip" />
+      <div class="col" v-for="curTrip, index in filteredTrips" :key="curTrip.id">
+        <AppCard :results="curTrip" :index="index"/>
       </div>
     </div>
 
@@ -33,9 +33,7 @@
             <h2 class="fw-bold">{{ this.store.modalInfo.titolo }}</h2>
             <h4>{{ this.store.modalInfo.destinazione }}</h4>
             <p class="fs-4">{{ this.store.modalInfo.descrizione }}</p>
-            <button class="btn text-info-emphasis position-absolute bottom-0 end-0" @click="goToEditTrip(this.store.modalInfo.id)">
-              Modifica il viaggio <i class="fa-solid fa-pen"></i>
-            </button>
+           
           </div>
         </div>
         <div
@@ -65,12 +63,6 @@
           <div class="right d-flex flex-column fw-bold">
             <div class="d-flex justify-content-between align-items-center">
               <h2>Tappe</h2>
-              <!-- <router-link
-                :to="`/create/${store.modalInfo.id}`"
-                @click="getDate(this.selectedIndex)"
-                class="btn fs-3 text-white fw-bold"
-                ><i class="fa-solid fa-plus"></i
-              ></router-link> -->
               <button
                 class="btn fs-3 text-white fw-bold"
                 @click="
@@ -220,10 +212,7 @@ export default {
       console.log(id);
       window.location.href = `http://127.0.0.1:8000/stages/${id}/edit`;
     },
-    goToEditTrip(id) {
-      console.log(id);
-      window.location.href = `http://127.0.0.1:8000/trips/${id}/edit`;
-    },
+    
     printSelectedStageImage() {
       if (this.selectedId) {
         const selectedStage = this.store.stages.find(
@@ -297,6 +286,7 @@ export default {
           );
         });
     },
+    
     editStage(id) {},
   },
   computed: {
@@ -352,6 +342,7 @@ export default {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
+    z-index: 9999;
   }
   .modale {
     width: 80%;
